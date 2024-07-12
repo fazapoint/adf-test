@@ -15,7 +15,7 @@
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "CSV_ADLS_faza_Ratings",
+						"referenceName": "CSV_ADLS_faza_MoviesADLS",
 						"type": "DatasetReference"
 					},
 					"name": "sink1"
@@ -79,10 +79,12 @@
 				"alterRow1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
-				"          DepartmentID as string,",
-				"          Name as string,",
-				"          GroupName as string,",
-				"          ModifiedDate as string",
+				"          movie as string,",
+				"          title as string,",
+				"          genres as string,",
+				"          year as string,",
+				"          Rating as string,",
+				"          {Rotton Tomato} as string",
 				"     ),",
 				"     partitionFileNames:['Rating2.csv'],",
 				"     umask: 0022,",
