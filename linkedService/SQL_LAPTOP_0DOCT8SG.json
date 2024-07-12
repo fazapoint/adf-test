@@ -1,0 +1,21 @@
+{
+	"name": "SQL_LAPTOP_0DOCT8SG",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"server": "LAPTOP-0DOCT8SG",
+			"database": "AdventureWorks2022",
+			"encrypt": "mandatory",
+			"trustServerCertificate": true,
+			"authenticationType": "SQL",
+			"userName": "faza",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI2ZTVkNWNiYi1kNGRhLTQwYTMtYjI2NC0zZTQ3MGY1NGJjYmEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "localfaza",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
