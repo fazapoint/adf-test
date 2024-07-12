@@ -27,7 +27,7 @@
 				}
 			},
 			{
-				"name": "Load",
+				"name": "Copy data1",
 				"type": "Copy",
 				"dependsOn": [
 					{
@@ -48,11 +48,6 @@
 				"typeProperties": {
 					"source": {
 						"type": "DelimitedTextSource",
-						"additionalColumns": [
-							{
-								"value": "$$FILEPATH"
-							}
-						],
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": true,
@@ -62,20 +57,7 @@
 							"type": "DelimitedTextReadSettings"
 						}
 					},
-					"sink": {
-						"type": "SqlServerSink",
-						"writeBehavior": "insert",
-						"sqlWriterUseTableLock": false
-					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
+					"enableStaging": false
 				},
 				"inputs": [
 					{
@@ -83,18 +65,10 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"container_name": "fazatest",
+							"folder_name": "data_output",
+							"file_name": "Rating2.csv",
 							"delimiter_name": ",",
 							"row_as_header": true
-						}
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "SQL_faza",
-						"type": "DatasetReference",
-						"parameters": {
-							"schema_name": "dbo",
-							"table_name": "Ratings"
 						}
 					}
 				]
