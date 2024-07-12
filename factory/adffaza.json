@@ -1,0 +1,9 @@
+{
+	"name": "adffaza",
+	"location": "southeastasia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "ee16f7e5-f9c9-44e2-a8b3-4bd7fdc16692",
+		"tenantId": "e522de87-3b5f-4914-b700-3ee0ac8e7497"
+	}
+}
