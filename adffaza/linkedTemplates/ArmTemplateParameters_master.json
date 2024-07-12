@@ -1,0 +1,57 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adffaza"
+		},
+		"ADLS_faza_accountKey": {
+			"value": ""
+		},
+		"AzureSQL_faza_password": {
+			"value": ""
+		},
+		"SQL_LAPTOP_0DOCT8SG_password": {
+			"value": ""
+		},
+		"SQL_faza_password": {
+			"value": ""
+		},
+		"ADLS_faza_properties_typeProperties_url": {
+			"value": "https://storageaccfaza.dfs.core.windows.net/"
+		},
+		"AzureSQL_faza_properties_typeProperties_server": {
+			"value": "fazaserver.database.windows.net"
+		},
+		"AzureSQL_faza_properties_typeProperties_database": {
+			"value": "DataDb"
+		},
+		"AzureSQL_faza_properties_typeProperties_userName": {
+			"value": "faza"
+		},
+		"SQL_LAPTOP_0DOCT8SG_properties_typeProperties_server": {
+			"value": "LAPTOP-0DOCT8SG"
+		},
+		"SQL_LAPTOP_0DOCT8SG_properties_typeProperties_database": {
+			"value": "AdventureWorks2022"
+		},
+		"SQL_LAPTOP_0DOCT8SG_properties_typeProperties_userName": {
+			"value": "faza"
+		},
+		"SQL_faza_properties_typeProperties_server": {
+			"value": "fazaserver.database.windows.net"
+		},
+		"SQL_faza_properties_typeProperties_database": {
+			"value": "DataDb"
+		},
+		"SQL_faza_properties_typeProperties_userName": {
+			"value": "faza"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

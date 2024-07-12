@@ -1,0 +1,140 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "adffaza"
+		},
+		"ADLS_faza_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ADLS_faza'"
+		},
+		"AzureSQL_faza_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'AzureSQL_faza'"
+		},
+		"SQL_LAPTOP_0DOCT8SG_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SQL_LAPTOP_0DOCT8SG'"
+		},
+		"SQL_faza_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SQL_faza'"
+		},
+		"ADLS_faza_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://storageaccfaza.dfs.core.windows.net/"
+		},
+		"AzureSQL_faza_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "fazaserver.database.windows.net"
+		},
+		"AzureSQL_faza_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "DataDb"
+		},
+		"AzureSQL_faza_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "faza"
+		},
+		"SQL_LAPTOP_0DOCT8SG_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "LAPTOP-0DOCT8SG"
+		},
+		"SQL_LAPTOP_0DOCT8SG_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "AdventureWorks2022"
+		},
+		"SQL_LAPTOP_0DOCT8SG_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "faza"
+		},
+		"SQL_faza_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "fazaserver.database.windows.net"
+		},
+		"SQL_faza_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "DataDb"
+		},
+		"SQL_faza_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "faza"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "adffaza_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"ADLS_faza_accountKey": {
+						"value": "[parameters('ADLS_faza_accountKey')]"
+					},
+					"AzureSQL_faza_password": {
+						"value": "[parameters('AzureSQL_faza_password')]"
+					},
+					"SQL_faza_password": {
+						"value": "[parameters('SQL_faza_password')]"
+					},
+					"SQL_LAPTOP_0DOCT8SG_password": {
+						"value": "[parameters('SQL_LAPTOP_0DOCT8SG_password')]"
+					},
+					"ADLS_faza_properties_typeProperties_url": {
+						"value": "[parameters('ADLS_faza_properties_typeProperties_url')]"
+					},
+					"AzureSQL_faza_properties_typeProperties_server": {
+						"value": "[parameters('AzureSQL_faza_properties_typeProperties_server')]"
+					},
+					"AzureSQL_faza_properties_typeProperties_database": {
+						"value": "[parameters('AzureSQL_faza_properties_typeProperties_database')]"
+					},
+					"AzureSQL_faza_properties_typeProperties_userName": {
+						"value": "[parameters('AzureSQL_faza_properties_typeProperties_userName')]"
+					},
+					"SQL_faza_properties_typeProperties_server": {
+						"value": "[parameters('SQL_faza_properties_typeProperties_server')]"
+					},
+					"SQL_faza_properties_typeProperties_database": {
+						"value": "[parameters('SQL_faza_properties_typeProperties_database')]"
+					},
+					"SQL_faza_properties_typeProperties_userName": {
+						"value": "[parameters('SQL_faza_properties_typeProperties_userName')]"
+					},
+					"SQL_LAPTOP_0DOCT8SG_properties_typeProperties_server": {
+						"value": "[parameters('SQL_LAPTOP_0DOCT8SG_properties_typeProperties_server')]"
+					},
+					"SQL_LAPTOP_0DOCT8SG_properties_typeProperties_database": {
+						"value": "[parameters('SQL_LAPTOP_0DOCT8SG_properties_typeProperties_database')]"
+					},
+					"SQL_LAPTOP_0DOCT8SG_properties_typeProperties_userName": {
+						"value": "[parameters('SQL_LAPTOP_0DOCT8SG_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
