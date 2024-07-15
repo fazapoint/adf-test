@@ -1,8 +1,8 @@
 {
-	"name": "JSON_ADLS_faza",
+	"name": "JSON_ADLS_hanif",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ADLS_faza",
+			"referenceName": "ADLS_hanifstorage",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
