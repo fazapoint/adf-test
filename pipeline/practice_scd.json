@@ -54,6 +54,8 @@
 			{
 				"name": "Insert CSV to SQL",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "HTTP to ADLS",
@@ -71,12 +73,36 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
 					"enableStaging": false
-				}
+				},
+				"inputs": [
+					{
+						"referenceName": "CSV_ADLS_faza",
+						"type": "DatasetReference",
+						"parameters": {
+							"container_name": "fazatest",
+							"delimiter_name": ",",
+							"row_as_header": true
+						}
+					}
+				]
 			},
 			{
 				"name": "SCD Type 1",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "Insert CSV to SQL",

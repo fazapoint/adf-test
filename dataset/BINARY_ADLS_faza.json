@@ -24,7 +24,10 @@
 		"type": "Binary",
 		"typeProperties": {
 			"location": {
-				"type": "AzureBlobFSLocation"
+				"type": "AzureBlobFSLocation",
+				"fileName": "CustomerSource",
+				"folderPath": "http_ingestion",
+				"fileSystem": "fazatest"
 			}
 		}
 	}
