@@ -92,6 +92,7 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"container_name": "fazatest",
+							"folder_name": "http_ingestion",
 							"delimiter_name": ",",
 							"row_as_header": true
 						}

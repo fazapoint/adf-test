@@ -25,7 +25,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "CustomerSource",
+				"fileName": "CustomerSource.csv",
 				"folderPath": "http_ingestion",
 				"fileSystem": "fazatest"
 			}
