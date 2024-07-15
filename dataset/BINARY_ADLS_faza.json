@@ -1,0 +1,39 @@
+{
+	"name": "BINARY_ADLS_faza",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ADLS_faza",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"container_name": {
+				"type": "string",
+				"defaultValue": "fazatest"
+			},
+			"folder_name": {
+				"type": "string"
+			},
+			"file_name": {
+				"type": "string"
+			},
+			"delimiter_name": {
+				"type": "string",
+				"defaultValue": ","
+			},
+			"row_as_header": {
+				"type": "bool",
+				"defaultValue": true
+			}
+		},
+		"folder": {
+			"name": "ADLS"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation"
+			}
+		}
+	}
+}
