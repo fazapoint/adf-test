@@ -93,7 +93,8 @@
 						"parameters": {
 							"container_name": "fazatest",
 							"folder_name": "http_ingestion",
-							"delimiter_name": ",",
+							"file_name": "CustomerSource.csv",
+							"delimiter_name": "|",
 							"row_as_header": true
 						}
 					}
