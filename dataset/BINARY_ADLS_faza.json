@@ -15,14 +15,6 @@
 			},
 			"file_name": {
 				"type": "string"
-			},
-			"delimiter_name": {
-				"type": "string",
-				"defaultValue": ","
-			},
-			"row_as_header": {
-				"type": "bool",
-				"defaultValue": true
 			}
 		},
 		"folder": {
