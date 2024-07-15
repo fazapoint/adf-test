@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "HTTP to ADLS",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -45,15 +45,23 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"container_name": "fazatest",
-							"folder_name": "data_output"
+							"folder_name": "http_ingestion",
+							"file_name": "CustomerSource.csv"
 						}
 					}
 				]
 			},
 			{
-				"name": "Copy data2",
+				"name": "Insert CSV to SQL",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "HTTP to ADLS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -67,9 +75,16 @@
 				}
 			},
 			{
-				"name": "Copy data3",
+				"name": "SCD Type 1",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Insert CSV to SQL",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
