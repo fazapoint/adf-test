@@ -29,6 +29,36 @@
 						}
 					}
 				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "list_image_file",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "pipelineReturnValue",
+					"value": [
+						{
+							"key": "file_name",
+							"value": {
+								"type": "Expression",
+								"content": "@split(replace(activity('list_image_file').output.firstRow.concatenated_files, '\\', ''), ',')"
+							}
+						}
+					],
+					"setSystemVariable": true
+				}
 			}
 		],
 		"folder": {
