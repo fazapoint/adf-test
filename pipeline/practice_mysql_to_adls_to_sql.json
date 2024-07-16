@@ -5,9 +5,14 @@
 			{
 				"name": "customers",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "adls_customers",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -59,6 +64,7 @@
 								"value": "@concat('data/customer/',formatDateTime(utcNow(), 'yyyy_MM_dd'))",
 								"type": "Expression"
 							},
+							"file_name": "customers.csv",
 							"delimiter_name": ",",
 							"row_as_header": true
 						}
@@ -78,9 +84,14 @@
 			{
 				"name": "orders",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "adls_orders",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -91,7 +102,15 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "MySqlSource"
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
 					},
 					"sink": {
 						"type": "SqlServerSink",
@@ -116,10 +135,17 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySql_faza",
+						"referenceName": "CSV_ADLS_faza",
 						"type": "DatasetReference",
 						"parameters": {
-							"table_name": "orders"
+							"container_name": "fazatest",
+							"folder_name": {
+								"value": "@concat('data/order/',formatDateTime(utcNow(), 'yyyy_MM_dd'))",
+								"type": "Expression"
+							},
+							"file_name": "orders.csv",
+							"delimiter_name": ",",
+							"row_as_header": true
 						}
 					}
 				],
@@ -137,9 +163,14 @@
 			{
 				"name": "order_items",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "adls_order_items",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "0.12:00:00",
 					"retry": 0,
@@ -150,7 +181,15 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "MySqlSource"
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
 					},
 					"sink": {
 						"type": "SqlServerSink",
@@ -176,10 +215,17 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySql_faza",
+						"referenceName": "CSV_ADLS_faza",
 						"type": "DatasetReference",
 						"parameters": {
-							"table_name": "order_items"
+							"container_name": "fazatest",
+							"folder_name": {
+								"value": "@concat('data/order_item/',formatDateTime(utcNow(), 'yyyy_MM_dd'))",
+								"type": "Expression"
+							},
+							"file_name": "order_items.csv",
+							"delimiter_name": ",",
+							"row_as_header": true
 						}
 					}
 				],
@@ -197,8 +243,6 @@
 			{
 				"name": "fact_customer_rmf",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "customers",
@@ -352,8 +396,6 @@
 			{
 				"name": "adls_orders",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -426,8 +468,6 @@
 			{
 				"name": "adls_order_items",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
