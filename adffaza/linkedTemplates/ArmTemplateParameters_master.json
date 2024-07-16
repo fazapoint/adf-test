@@ -32,6 +32,9 @@
 		"Google_Cloud_Storage_hanif_secretAccessKey": {
 			"value": ""
 		},
+		"POSTGRE_loan_modeling_password": {
+			"value": ""
+		},
 		"ADLS_faza_properties_typeProperties_url": {
 			"value": "https://storageaccfaza.dfs.core.windows.net/"
 		},
@@ -97,6 +100,15 @@
 		},
 		"Google_Cloud_Storage_hanif_properties_typeProperties_accessKeyId": {
 			"value": "GOOGJUP6CZDUHBLCN3JUECIC"
+		},
+		"POSTGRE_loan_modeling_properties_typeProperties_server": {
+			"value": "34.31.255.191"
+		},
+		"POSTGRE_loan_modeling_properties_typeProperties_database": {
+			"value": "postgres"
+		},
+		"POSTGRE_loan_modeling_properties_typeProperties_username": {
+			"value": "postgres"
 		},
 		"containerUri": {
 			"value": ""

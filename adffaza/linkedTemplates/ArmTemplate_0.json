@@ -39,9 +39,9 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'secretAccessKey' of 'Google_Cloud_Storage_hanif'"
 		},
-		"SQL_LAPTOP_0DOCT8SG_password": {
+		"POSTGRE_loan_modeling_password": {
 			"type": "secureString",
-			"metadata": "Secure string for 'password' of 'SQL_LAPTOP_0DOCT8SG'"
+			"metadata": "Secure string for 'password' of 'POSTGRE_loan_modeling'"
 		},
 		"ADLS_faza_properties_typeProperties_url": {
 			"type": "string",
@@ -119,17 +119,17 @@
 			"type": "string",
 			"defaultValue": "GOOGJUP6CZDUHBLCN3JUECIC"
 		},
-		"SQL_LAPTOP_0DOCT8SG_properties_typeProperties_server": {
+		"POSTGRE_loan_modeling_properties_typeProperties_server": {
 			"type": "string",
-			"defaultValue": "LAPTOP-0DOCT8SG"
+			"defaultValue": "34.31.255.191"
 		},
-		"SQL_LAPTOP_0DOCT8SG_properties_typeProperties_database": {
+		"POSTGRE_loan_modeling_properties_typeProperties_database": {
 			"type": "string",
-			"defaultValue": "AdventureWorks2022"
+			"defaultValue": "postgres"
 		},
-		"SQL_LAPTOP_0DOCT8SG_properties_typeProperties_userName": {
+		"POSTGRE_loan_modeling_properties_typeProperties_username": {
 			"type": "string",
-			"defaultValue": "faza"
+			"defaultValue": "postgres"
 		}
 	},
 	"variables": {
@@ -320,6 +320,28 @@
 						"type": "SecureString",
 						"value": "[parameters('Google_Cloud_Storage_hanif_secretAccessKey')]"
 					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/POSTGRE_loan_modeling')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "PostgreSqlV2",
+				"typeProperties": {
+					"server": "[parameters('POSTGRE_loan_modeling_properties_typeProperties_server')]",
+					"port": 5432,
+					"database": "[parameters('POSTGRE_loan_modeling_properties_typeProperties_database')]",
+					"username": "[parameters('POSTGRE_loan_modeling_properties_typeProperties_username')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('POSTGRE_loan_modeling_password')]"
+					},
+					"sslMode": 1,
+					"authenticationType": "Basic"
 				}
 			},
 			"dependsOn": []
@@ -788,34 +810,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/SQL_hanif')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/SQL_LAPTOP_0DOCT8SG')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "SqlServer",
-				"typeProperties": {
-					"server": "[parameters('SQL_LAPTOP_0DOCT8SG_properties_typeProperties_server')]",
-					"database": "[parameters('SQL_LAPTOP_0DOCT8SG_properties_typeProperties_database')]",
-					"encrypt": "mandatory",
-					"trustServerCertificate": true,
-					"authenticationType": "SQL",
-					"userName": "[parameters('SQL_LAPTOP_0DOCT8SG_properties_typeProperties_userName')]",
-					"password": {
-						"type": "SecureString",
-						"value": "[parameters('SQL_LAPTOP_0DOCT8SG_password')]"
-					}
-				},
-				"connectVia": {
-					"referenceName": "localfaza",
-					"type": "IntegrationRuntimeReference"
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/integrationRuntimes/localfaza')]"
 			]
 		}
 	]

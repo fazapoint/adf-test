@@ -43,6 +43,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'secretAccessKey' of 'Google_Cloud_Storage_hanif'"
 		},
+		"POSTGRE_loan_modeling_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'POSTGRE_loan_modeling'"
+		},
 		"ADLS_faza_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://storageaccfaza.dfs.core.windows.net/"
@@ -131,6 +135,18 @@
 			"type": "string",
 			"defaultValue": "GOOGJUP6CZDUHBLCN3JUECIC"
 		},
+		"POSTGRE_loan_modeling_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "34.31.255.191"
+		},
+		"POSTGRE_loan_modeling_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "postgres"
+		},
+		"POSTGRE_loan_modeling_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "postgres"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -182,8 +198,8 @@
 					"Google_Cloud_Storage_hanif_secretAccessKey": {
 						"value": "[parameters('Google_Cloud_Storage_hanif_secretAccessKey')]"
 					},
-					"SQL_LAPTOP_0DOCT8SG_password": {
-						"value": "[parameters('SQL_LAPTOP_0DOCT8SG_password')]"
+					"POSTGRE_loan_modeling_password": {
+						"value": "[parameters('POSTGRE_loan_modeling_password')]"
 					},
 					"ADLS_faza_properties_typeProperties_url": {
 						"value": "[parameters('ADLS_faza_properties_typeProperties_url')]"
@@ -242,14 +258,14 @@
 					"Google_Cloud_Storage_hanif_properties_typeProperties_accessKeyId": {
 						"value": "[parameters('Google_Cloud_Storage_hanif_properties_typeProperties_accessKeyId')]"
 					},
-					"SQL_LAPTOP_0DOCT8SG_properties_typeProperties_server": {
-						"value": "[parameters('SQL_LAPTOP_0DOCT8SG_properties_typeProperties_server')]"
+					"POSTGRE_loan_modeling_properties_typeProperties_server": {
+						"value": "[parameters('POSTGRE_loan_modeling_properties_typeProperties_server')]"
 					},
-					"SQL_LAPTOP_0DOCT8SG_properties_typeProperties_database": {
-						"value": "[parameters('SQL_LAPTOP_0DOCT8SG_properties_typeProperties_database')]"
+					"POSTGRE_loan_modeling_properties_typeProperties_database": {
+						"value": "[parameters('POSTGRE_loan_modeling_properties_typeProperties_database')]"
 					},
-					"SQL_LAPTOP_0DOCT8SG_properties_typeProperties_userName": {
-						"value": "[parameters('SQL_LAPTOP_0DOCT8SG_properties_typeProperties_userName')]"
+					"POSTGRE_loan_modeling_properties_typeProperties_username": {
+						"value": "[parameters('POSTGRE_loan_modeling_properties_typeProperties_username')]"
 					}
 				}
 			},
@@ -268,6 +284,18 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"SQL_LAPTOP_0DOCT8SG_password": {
+						"value": "[parameters('SQL_LAPTOP_0DOCT8SG_password')]"
+					},
+					"SQL_LAPTOP_0DOCT8SG_properties_typeProperties_server": {
+						"value": "[parameters('SQL_LAPTOP_0DOCT8SG_properties_typeProperties_server')]"
+					},
+					"SQL_LAPTOP_0DOCT8SG_properties_typeProperties_database": {
+						"value": "[parameters('SQL_LAPTOP_0DOCT8SG_properties_typeProperties_database')]"
+					},
+					"SQL_LAPTOP_0DOCT8SG_properties_typeProperties_userName": {
+						"value": "[parameters('SQL_LAPTOP_0DOCT8SG_properties_typeProperties_userName')]"
 					}
 				}
 			},
