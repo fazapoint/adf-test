@@ -53,7 +53,7 @@
 							"key": "file_name",
 							"value": {
 								"type": "Expression",
-								"content": "@split(replace(activity('list_image_file').output.firstRow.concatenated_files, '\\', ''), ',')"
+								"content": "@split(replace(activity('list_image_file').output.firstRow.image_name, '\\', ''), ',')"
 							}
 						}
 					],
@@ -73,6 +73,10 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@split(replace(activity('list_image_file').output.firstRow.image_name, '\\', ''), ',')",
+						"type": "Expression"
+					},
 					"activities": [
 						{
 							"name": "transfer_adls",
