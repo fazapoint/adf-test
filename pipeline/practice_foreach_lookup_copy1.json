@@ -170,7 +170,10 @@
 								"scripts": [
 									{
 										"type": "Query",
-										"text": "@concat('INSERT INTO dbo.image_log (image_name, image_url, ingest_tme) VALUES (''', item(), ''', ''https://storageacchanif.blob.core.windows.net/development/json_file/', item(), ''', GETDATE());')"
+										"text": {
+											"value": "@concat('INSERT INTO dbo.image_log (image_name, image_url, ingest_tme) VALUES (''', item(), ''', ''https://storageacchanif.blob.core.windows.net/development/json_file/', item(), ''', GETDATE());')",
+											"type": "Expression"
+										}
 									}
 								],
 								"scriptBlockExecutionTimeout": "02:00:00"
@@ -203,7 +206,10 @@
 								"scripts": [
 									{
 										"type": "Query",
-										"text": "@concat('INSERT INTO dbo.image_log (image_name, image_url, ingest_tme) VALUES (''', item(), ''', ''failed', ''', GETDATE());')"
+										"text": {
+											"value": "@concat('INSERT INTO dbo.list_image (image_name, image_url, ingest_time) VALUES (''', item(), ''', ''failed', ''', GETDATE());')",
+											"type": "Expression"
+										}
 									}
 								],
 								"scriptBlockExecutionTimeout": "02:00:00"

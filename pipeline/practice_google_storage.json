@@ -59,6 +59,154 @@
 					],
 					"setSystemVariable": true
 				}
+			},
+			{
+				"name": "ForEach to get iamge file",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Set variable1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"activities": [
+						{
+							"name": "transfer_adls",
+							"type": "Copy",
+							"dependsOn": [],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"source": {
+									"type": "BinarySource",
+									"storeSettings": {
+										"type": "GoogleCloudStorageReadSettings",
+										"recursive": true
+									},
+									"formatSettings": {
+										"type": "BinaryReadSettings"
+									}
+								},
+								"sink": {
+									"type": "BinarySink",
+									"storeSettings": {
+										"type": "AzureBlobFSWriteSettings"
+									}
+								},
+								"enableStaging": false
+							},
+							"inputs": [
+								{
+									"referenceName": "BINARY_GoogleCloudStorage_hanif",
+									"type": "DatasetReference",
+									"parameters": {
+										"directory_name": "image",
+										"file_name": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							],
+							"outputs": [
+								{
+									"referenceName": "BINARY_ADLS_faza",
+									"type": "DatasetReference",
+									"parameters": {
+										"container_name": "fazatest",
+										"folder_name": "data/image",
+										"file_name": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						},
+						{
+							"name": "Success log",
+							"type": "Script",
+							"dependsOn": [
+								{
+									"activity": "transfer_adls",
+									"dependencyConditions": [
+										"Succeeded"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"linkedServiceName": {
+								"referenceName": "SQL_faza",
+								"type": "LinkedServiceReference"
+							},
+							"typeProperties": {
+								"scripts": [
+									{
+										"type": "Query",
+										"text": {
+											"value": "@concat('INSERT INTO dbo.list_image (image_name, image_url, ingest_time) VALUES (''', item(), ''', ''https://storageaccfaza.blob.core.windows.net/fazatest/data/list_image', item(), ''', GETDATE());')",
+											"type": "Expression"
+										}
+									}
+								],
+								"scriptBlockExecutionTimeout": "02:00:00"
+							}
+						},
+						{
+							"name": "Failed log",
+							"type": "Script",
+							"dependsOn": [
+								{
+									"activity": "transfer_adls",
+									"dependencyConditions": [
+										"Failed"
+									]
+								}
+							],
+							"policy": {
+								"timeout": "0.12:00:00",
+								"retry": 0,
+								"retryIntervalInSeconds": 30,
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"linkedServiceName": {
+								"referenceName": "SQL_faza",
+								"type": "LinkedServiceReference"
+							},
+							"typeProperties": {
+								"scripts": [
+									{
+										"type": "Query",
+										"text": {
+											"value": "@concat('INSERT INTO dbo.list_image (image_name, image_url, ingest_time) VALUES (''', item(), ''', ''https://storageaccfaza.blob.core.windows.net/fazatest/data/list_image', item(), ''', GETDATE());')",
+											"type": "Expression"
+										}
+									}
+								],
+								"scriptBlockExecutionTimeout": "02:00:00"
+							}
+						}
+					]
+				}
 			}
 		],
 		"folder": {
