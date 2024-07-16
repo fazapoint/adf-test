@@ -1,0 +1,18 @@
+{
+	"name": "MySql_customer_spending_behavior",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "MySql",
+		"typeProperties": {
+			"server": "34.34.222.232",
+			"port": 3306,
+			"database": "data",
+			"username": "admin",
+			"sslMode": 1,
+			"useSystemTrustStore": 0,
+			"driverVersion": "v2",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDg1QjVBMUQ5LUNGREEtNDRFMy1BRDM2LTI4ODZCQjUxNUNFQl81YjlhZWIxYi04NWE0LTQ5YmEtOWY3OC03NGI3YmQxMWI5ZTkiDQp9"
+		}
+	}
+}
