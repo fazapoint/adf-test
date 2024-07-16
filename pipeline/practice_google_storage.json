@@ -63,7 +63,7 @@
 				}
 			},
 			{
-				"name": "ForEach to get iamge file",
+				"name": "ForEach to get image file",
 				"type": "ForEach",
 				"dependsOn": [
 					{
@@ -76,7 +76,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@split(replace(activity('list_image_file').output.firstRow.image_name, '\\', ''), ',')",
+						"value": "@split(replace(activity('list_image_file').output.firstRow.concatenated_files, '\\', ''), ',')",
 						"type": "Expression"
 					},
 					"activities": [
