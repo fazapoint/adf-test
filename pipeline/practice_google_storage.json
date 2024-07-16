@@ -22,7 +22,11 @@
 					},
 					"dataset": {
 						"referenceName": "SQL_hanif_image",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"schema_name": "dbo",
+							"table_name": "list_image"
+						}
 					}
 				}
 			}
