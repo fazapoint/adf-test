@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "SELECT \n    STRING_AGG(file_name,',') AS concatenated_files\nFROM list_image;",
+						"sqlReaderQuery": "SELECT \n    STRING_AGG(image_name,',') AS concatenated_files\nFROM list_image;",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -25,8 +25,8 @@
 						"referenceName": "SQL_hanif_image",
 						"type": "DatasetReference",
 						"parameters": {
-							"schema_name": "dbo",
-							"table_name": "list_image"
+							"schema_name": ".",
+							"table_name": "."
 						}
 					},
 					"firstRowOnly": true
@@ -52,10 +52,10 @@
 					"variableName": "pipelineReturnValue",
 					"value": [
 						{
-							"key": "file_name",
+							"key": "image_name",
 							"value": {
 								"type": "Expression",
-								"content": "@split(replace(activity('list_image_file').output.firstRow.image_name, '\\', ''), ',')"
+								"content": "@split(replace(activity('list_image_file').output.firstRow.concatenated_files, '\\', ''), ',')"
 							}
 						}
 					],
@@ -130,9 +130,9 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"container_name": "fazatest",
-										"folder_name": "data/image",
+										"folder_name": "data",
 										"file_name": {
-											"value": "@item()",
+											"value": "@concat(item(),'.png')",
 											"type": "Expression"
 										}
 									}
@@ -203,7 +203,7 @@
 									{
 										"type": "Query",
 										"text": {
-											"value": "@concat('INSERT INTO dbo.list_image (image_name, image_url, ingest_time) VALUES (''', item(), ''', ''failed', ''', GETDATE());')",
+											"value": "@concat('INSERT INTO dbo.list_image (image_name, image_url, ingest_time) VALUES (''', item(), '.png'', ''failed'', ''', item(), '.png'', GETDATE());')\n",
 											"type": "Expression"
 										}
 									}
