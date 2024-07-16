@@ -8,6 +8,9 @@
 		"ADLS_faza_accountKey": {
 			"value": ""
 		},
+		"ADLS_hanifstorage_accountKey": {
+			"value": ""
+		},
 		"AzureSQL_faza_password": {
 			"value": ""
 		},
@@ -17,14 +20,23 @@
 		"SQL_faza_password": {
 			"value": ""
 		},
-		"ADLS_hanifstorage_accountKey": {
+		"SQL_hanif_password": {
 			"value": ""
 		},
-		"SQL_hanif_password": {
+		"MySql_customer_spending_behavior_password": {
+			"value": ""
+		},
+		"SQL_hanif2_password": {
+			"value": ""
+		},
+		"Google_Cloud_Storage_hanif_secretAccessKey": {
 			"value": ""
 		},
 		"ADLS_faza_properties_typeProperties_url": {
 			"value": "https://storageaccfaza.dfs.core.windows.net/"
+		},
+		"ADLS_hanifstorage_properties_typeProperties_url": {
+			"value": "https://hanifstorageaccount.dfs.core.windows.net"
 		},
 		"AzureSQL_faza_properties_typeProperties_server": {
 			"value": "fazaserver.database.windows.net"
@@ -34,6 +46,9 @@
 		},
 		"AzureSQL_faza_properties_typeProperties_userName": {
 			"value": "faza"
+		},
+		"HTTP_solliancepublicdata_Customer_properties_typeProperties_url": {
+			"value": "https://solliancepublicdata.blob.core.windows.net/dataengineering/dp-203/awdata/CustomerSource.csv"
 		},
 		"SQL_LAPTOP_0DOCT8SG_properties_typeProperties_server": {
 			"value": "LAPTOP-0DOCT8SG"
@@ -53,12 +68,6 @@
 		"SQL_faza_properties_typeProperties_userName": {
 			"value": "faza"
 		},
-		"HTTP_solliancepublicdata_Customer_properties_typeProperties_url": {
-			"value": "https://solliancepublicdata.blob.core.windows.net/dataengineering/dp-203/awdata/CustomerSource.csv"
-		},
-		"ADLS_hanifstorage_properties_typeProperties_url": {
-			"value": "https://hanifstorageaccount.dfs.core.windows.net"
-		},
 		"SQL_hanif_properties_typeProperties_server": {
 			"value": "mhaniffajari.database.windows.net"
 		},
@@ -67,6 +76,27 @@
 		},
 		"SQL_hanif_properties_typeProperties_userName": {
 			"value": "admin_sa"
+		},
+		"MySql_customer_spending_behavior_properties_typeProperties_server": {
+			"value": "34.34.222.232"
+		},
+		"MySql_customer_spending_behavior_properties_typeProperties_database": {
+			"value": "data"
+		},
+		"MySql_customer_spending_behavior_properties_typeProperties_username": {
+			"value": "admin"
+		},
+		"SQL_hanif2_properties_typeProperties_server": {
+			"value": "hanifajari.database.windows.net"
+		},
+		"SQL_hanif2_properties_typeProperties_database": {
+			"value": "Data"
+		},
+		"SQL_hanif2_properties_typeProperties_userName": {
+			"value": "admin_sa"
+		},
+		"Google_Cloud_Storage_hanif_properties_typeProperties_accessKeyId": {
+			"value": "GOOGJUP6CZDUHBLCN3JUECIC"
 		},
 		"containerUri": {
 			"value": ""

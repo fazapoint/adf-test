@@ -11,6 +11,10 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'ADLS_faza'"
 		},
+		"ADLS_hanifstorage_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ADLS_hanifstorage'"
+		},
 		"AzureSQL_faza_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'AzureSQL_faza'"
@@ -23,17 +27,29 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'SQL_faza'"
 		},
-		"ADLS_hanifstorage_accountKey": {
-			"type": "secureString",
-			"metadata": "Secure string for 'accountKey' of 'ADLS_hanifstorage'"
-		},
 		"SQL_hanif_password": {
 			"type": "secureString",
 			"metadata": "Secure string for 'password' of 'SQL_hanif'"
 		},
+		"MySql_customer_spending_behavior_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'MySql_customer_spending_behavior'"
+		},
+		"SQL_hanif2_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'SQL_hanif2'"
+		},
+		"Google_Cloud_Storage_hanif_secretAccessKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'secretAccessKey' of 'Google_Cloud_Storage_hanif'"
+		},
 		"ADLS_faza_properties_typeProperties_url": {
 			"type": "string",
 			"defaultValue": "https://storageaccfaza.dfs.core.windows.net/"
+		},
+		"ADLS_hanifstorage_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://hanifstorageaccount.dfs.core.windows.net"
 		},
 		"AzureSQL_faza_properties_typeProperties_server": {
 			"type": "string",
@@ -46,6 +62,10 @@
 		"AzureSQL_faza_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "faza"
+		},
+		"HTTP_solliancepublicdata_Customer_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://solliancepublicdata.blob.core.windows.net/dataengineering/dp-203/awdata/CustomerSource.csv"
 		},
 		"SQL_LAPTOP_0DOCT8SG_properties_typeProperties_server": {
 			"type": "string",
@@ -71,14 +91,6 @@
 			"type": "string",
 			"defaultValue": "faza"
 		},
-		"HTTP_solliancepublicdata_Customer_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://solliancepublicdata.blob.core.windows.net/dataengineering/dp-203/awdata/CustomerSource.csv"
-		},
-		"ADLS_hanifstorage_properties_typeProperties_url": {
-			"type": "string",
-			"defaultValue": "https://hanifstorageaccount.dfs.core.windows.net"
-		},
 		"SQL_hanif_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "mhaniffajari.database.windows.net"
@@ -90,6 +102,34 @@
 		"SQL_hanif_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "admin_sa"
+		},
+		"MySql_customer_spending_behavior_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "34.34.222.232"
+		},
+		"MySql_customer_spending_behavior_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "data"
+		},
+		"MySql_customer_spending_behavior_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "admin"
+		},
+		"SQL_hanif2_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "hanifajari.database.windows.net"
+		},
+		"SQL_hanif2_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "Data"
+		},
+		"SQL_hanif2_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "admin_sa"
+		},
+		"Google_Cloud_Storage_hanif_properties_typeProperties_accessKeyId": {
+			"type": "string",
+			"defaultValue": "GOOGJUP6CZDUHBLCN3JUECIC"
 		},
 		"containerUri": {
 			"type": "string",
@@ -121,23 +161,35 @@
 					"ADLS_faza_accountKey": {
 						"value": "[parameters('ADLS_faza_accountKey')]"
 					},
+					"ADLS_hanifstorage_accountKey": {
+						"value": "[parameters('ADLS_hanifstorage_accountKey')]"
+					},
 					"AzureSQL_faza_password": {
 						"value": "[parameters('AzureSQL_faza_password')]"
 					},
 					"SQL_faza_password": {
 						"value": "[parameters('SQL_faza_password')]"
 					},
-					"ADLS_hanifstorage_accountKey": {
-						"value": "[parameters('ADLS_hanifstorage_accountKey')]"
-					},
 					"SQL_hanif_password": {
 						"value": "[parameters('SQL_hanif_password')]"
+					},
+					"MySql_customer_spending_behavior_password": {
+						"value": "[parameters('MySql_customer_spending_behavior_password')]"
+					},
+					"SQL_hanif2_password": {
+						"value": "[parameters('SQL_hanif2_password')]"
+					},
+					"Google_Cloud_Storage_hanif_secretAccessKey": {
+						"value": "[parameters('Google_Cloud_Storage_hanif_secretAccessKey')]"
 					},
 					"SQL_LAPTOP_0DOCT8SG_password": {
 						"value": "[parameters('SQL_LAPTOP_0DOCT8SG_password')]"
 					},
 					"ADLS_faza_properties_typeProperties_url": {
 						"value": "[parameters('ADLS_faza_properties_typeProperties_url')]"
+					},
+					"ADLS_hanifstorage_properties_typeProperties_url": {
+						"value": "[parameters('ADLS_hanifstorage_properties_typeProperties_url')]"
 					},
 					"AzureSQL_faza_properties_typeProperties_server": {
 						"value": "[parameters('AzureSQL_faza_properties_typeProperties_server')]"
@@ -148,6 +200,9 @@
 					"AzureSQL_faza_properties_typeProperties_userName": {
 						"value": "[parameters('AzureSQL_faza_properties_typeProperties_userName')]"
 					},
+					"HTTP_solliancepublicdata_Customer_properties_typeProperties_url": {
+						"value": "[parameters('HTTP_solliancepublicdata_Customer_properties_typeProperties_url')]"
+					},
 					"SQL_faza_properties_typeProperties_server": {
 						"value": "[parameters('SQL_faza_properties_typeProperties_server')]"
 					},
@@ -157,12 +212,6 @@
 					"SQL_faza_properties_typeProperties_userName": {
 						"value": "[parameters('SQL_faza_properties_typeProperties_userName')]"
 					},
-					"HTTP_solliancepublicdata_Customer_properties_typeProperties_url": {
-						"value": "[parameters('HTTP_solliancepublicdata_Customer_properties_typeProperties_url')]"
-					},
-					"ADLS_hanifstorage_properties_typeProperties_url": {
-						"value": "[parameters('ADLS_hanifstorage_properties_typeProperties_url')]"
-					},
 					"SQL_hanif_properties_typeProperties_server": {
 						"value": "[parameters('SQL_hanif_properties_typeProperties_server')]"
 					},
@@ -171,6 +220,27 @@
 					},
 					"SQL_hanif_properties_typeProperties_userName": {
 						"value": "[parameters('SQL_hanif_properties_typeProperties_userName')]"
+					},
+					"MySql_customer_spending_behavior_properties_typeProperties_server": {
+						"value": "[parameters('MySql_customer_spending_behavior_properties_typeProperties_server')]"
+					},
+					"MySql_customer_spending_behavior_properties_typeProperties_database": {
+						"value": "[parameters('MySql_customer_spending_behavior_properties_typeProperties_database')]"
+					},
+					"MySql_customer_spending_behavior_properties_typeProperties_username": {
+						"value": "[parameters('MySql_customer_spending_behavior_properties_typeProperties_username')]"
+					},
+					"SQL_hanif2_properties_typeProperties_server": {
+						"value": "[parameters('SQL_hanif2_properties_typeProperties_server')]"
+					},
+					"SQL_hanif2_properties_typeProperties_database": {
+						"value": "[parameters('SQL_hanif2_properties_typeProperties_database')]"
+					},
+					"SQL_hanif2_properties_typeProperties_userName": {
+						"value": "[parameters('SQL_hanif2_properties_typeProperties_userName')]"
+					},
+					"Google_Cloud_Storage_hanif_properties_typeProperties_accessKeyId": {
+						"value": "[parameters('Google_Cloud_Storage_hanif_properties_typeProperties_accessKeyId')]"
 					},
 					"SQL_LAPTOP_0DOCT8SG_properties_typeProperties_server": {
 						"value": "[parameters('SQL_LAPTOP_0DOCT8SG_properties_typeProperties_server')]"
