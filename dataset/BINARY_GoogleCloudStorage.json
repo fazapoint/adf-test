@@ -1,0 +1,33 @@
+{
+	"name": "BINARY_GoogleCloudStorage",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Google_Cloud_Storage_hanif",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"directory_name": {
+				"type": "string"
+			},
+			"file_name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "GoogleCloudStorageLocation",
+				"bucketName": "azure_data_engineer",
+				"folderPath": {
+					"value": "@dataset().directory_name",
+					"type": "Expression"
+				},
+				"fileName": {
+					"value": "@dataset().file_name",
+					"type": "Expression"
+				}
+			}
+		}
+	}
+}
