@@ -1,0 +1,13 @@
+{
+	"name": "Google_Cloud_Storage_hanif",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "GoogleCloudStorage",
+		"typeProperties": {
+			"serviceUrl": "https://storage.googleapis.com",
+			"accessKeyId": "GOOGJUP6CZDUHBLCN3JUECIC",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDg1QjVBMUQ5LUNGREEtNDRFMy1BRDM2LTI4ODZCQjUxNUNFQl9kZjU3NWJjYS0wNjY4LTQ0ZmItYjQwYy0wMDE3M2IwNGE0ZmMiDQp9"
+		}
+	}
+}
