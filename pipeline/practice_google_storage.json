@@ -17,6 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
+						"sqlReaderQuery": "SELECT \n    STRING_AGG(file_name,',') AS concatenated_files\nFROM list_image;",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -27,7 +28,8 @@
 							"schema_name": "dbo",
 							"table_name": "list_image"
 						}
-					}
+					},
+					"firstRowOnly": true
 				}
 			},
 			{
@@ -116,7 +118,7 @@
 									"parameters": {
 										"directory_name": "image",
 										"file_name": {
-											"value": "@item()",
+											"value": "@concat(item(),'.png')",
 											"type": "Expression"
 										}
 									}
@@ -165,7 +167,7 @@
 									{
 										"type": "Query",
 										"text": {
-											"value": "@concat('INSERT INTO dbo.list_image (image_name, image_url, ingest_time) VALUES (''', item(), ''', ''https://storageaccfaza.blob.core.windows.net/fazatest/data/list_image', item(), ''', GETDATE());')",
+											"value": "@concat('INSERT INTO dbo.list_image (image_name, image_url, ingest_time) VALUES (''', item(), '.png'', ''https://storageaccfaza.blob.core.windows.net/fazatest/data/list_image', item(), '.png'', GETDATE());')\n",
 											"type": "Expression"
 										}
 									}
@@ -201,7 +203,7 @@
 									{
 										"type": "Query",
 										"text": {
-											"value": "@concat('INSERT INTO dbo.list_image (image_name, image_url, ingest_time) VALUES (''', item(), ''', ''https://storageaccfaza.blob.core.windows.net/fazatest/data/list_image', item(), ''', GETDATE());')",
+											"value": "@concat('INSERT INTO dbo.list_image (image_name, image_url, ingest_time) VALUES (''', item(), ''', ''failed', ''', GETDATE());')",
 											"type": "Expression"
 										}
 									}
