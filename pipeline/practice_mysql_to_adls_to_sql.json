@@ -369,7 +369,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySql_faza",
+						"referenceName": "MySql_customers_spending",
 						"type": "DatasetReference",
 						"parameters": {
 							"table_name": "customers"
@@ -441,7 +441,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySql_faza",
+						"referenceName": "MySql_customers_spending",
 						"type": "DatasetReference",
 						"parameters": {
 							"table_name": "orders"
@@ -513,7 +513,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "MySql_faza",
+						"referenceName": "MySql_customers_spending",
 						"type": "DatasetReference",
 						"parameters": {
 							"table_name": "order_items"

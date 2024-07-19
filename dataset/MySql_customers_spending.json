@@ -1,5 +1,5 @@
 {
-	"name": "MySql_faza",
+	"name": "MySql_customers_spending",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "MySql_customer_spending_behavior",

@@ -1,12 +1,10 @@
 {
-	"name": "practice_mysql_to_sql",
+	"name": "end_to_end_pipeline",
 	"properties": {
 		"activities": [
 			{
 				"name": "customers",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -30,15 +28,15 @@
 						]
 					},
 					"sink": {
-						"type": "SqlServerSink",
-						"writeBehavior": "upsert",
-						"upsertSettings": {
-							"useTempDB": true,
-							"keys": [
-								"customer_id"
-							]
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
 						},
-						"sqlWriterUseTableLock": false
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
 					},
 					"enableStaging": false,
 					"translator": {
@@ -61,11 +59,17 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "SQL_faza",
+						"referenceName": "CSV_ADLS_faza",
 						"type": "DatasetReference",
 						"parameters": {
-							"schema_name": "dbo",
-							"table_name": "customers"
+							"container_name": "fazatest",
+							"folder_name": {
+								"value": "@concat('raw/customers/', formatDateTime(utcNow(), 'yyyyMMdd'))",
+								"type": "Expression"
+							},
+							"file_name": "customers.csv",
+							"delimiter_name": ",",
+							"row_as_header": true
 						}
 					}
 				]
@@ -73,8 +77,6 @@
 			{
 				"name": "orders",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -98,15 +100,15 @@
 						]
 					},
 					"sink": {
-						"type": "SqlServerSink",
-						"writeBehavior": "upsert",
-						"upsertSettings": {
-							"useTempDB": true,
-							"keys": [
-								"order_id"
-							]
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
 						},
-						"sqlWriterUseTableLock": false
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
 					},
 					"enableStaging": false,
 					"translator": {
@@ -129,11 +131,17 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "SQL_faza",
+						"referenceName": "CSV_ADLS_faza",
 						"type": "DatasetReference",
 						"parameters": {
-							"schema_name": "dbo",
-							"table_name": "orders"
+							"container_name": "fazatest",
+							"folder_name": {
+								"value": "@concat('raw/orders/', formatDateTime(utcNow(), 'yyyyMMdd'))",
+								"type": "Expression"
+							},
+							"file_name": "orders.csv",
+							"delimiter_name": ",",
+							"row_as_header": true
 						}
 					}
 				]
@@ -141,8 +149,6 @@
 			{
 				"name": "order_items",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -166,16 +172,15 @@
 						]
 					},
 					"sink": {
-						"type": "SqlServerSink",
-						"writeBehavior": "upsert",
-						"upsertSettings": {
-							"useTempDB": true,
-							"keys": [
-								"order_id",
-								"order_item_id"
-							]
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
 						},
-						"sqlWriterUseTableLock": false
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
 					},
 					"enableStaging": false,
 					"translator": {
@@ -198,99 +203,24 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "SQL_faza",
+						"referenceName": "CSV_ADLS_faza",
 						"type": "DatasetReference",
 						"parameters": {
-							"schema_name": "dbo",
-							"table_name": "order_items"
-						}
-					}
-				]
-			},
-			{
-				"name": "fact_customer_rmf",
-				"type": "Copy",
-				"dependsOn": [
-					{
-						"activity": "customers",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "orders",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "order_items",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "SqlServerSource",
-						"sqlReaderQuery": "SELECT * FROM view_customer_rfm",
-						"queryTimeout": "02:00:00",
-						"partitionOption": "None"
-					},
-					"sink": {
-						"type": "SqlServerSink",
-						"writeBehavior": "upsert",
-						"upsertSettings": {
-							"useTempDB": true,
-							"keys": [
-								"customer_id",
-								"month_id"
-							]
-						},
-						"sqlWriterUseTableLock": false
-					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
-				},
-				"inputs": [
-					{
-						"referenceName": "SQL_faza",
-						"type": "DatasetReference",
-						"parameters": {
-							"schema_name": ".",
-							"table_name": "."
-						}
-					}
-				],
-				"outputs": [
-					{
-						"referenceName": "SQL_faza",
-						"type": "DatasetReference",
-						"parameters": {
-							"schema_name": "dbo",
-							"table_name": "fact_customer_rfm"
+							"container_name": "fazatest",
+							"folder_name": {
+								"value": "@concat('raw/order_items/', formatDateTime(utcNow(), 'yyyyMMdd'))",
+								"type": "Expression"
+							},
+							"file_name": "order_items.csv",
+							"delimiter_name": ",",
+							"row_as_header": true
 						}
 					}
 				]
 			}
 		],
 		"folder": {
-			"name": "practice_case"
+			"name": "day8"
 		},
 		"annotations": []
 	}
