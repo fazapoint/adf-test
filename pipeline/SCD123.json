@@ -3,8 +3,10 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
+				"name": "SCD 1",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -17,12 +19,22 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "-- SCD 1\nWITH LatestEndDateEmp AS (\n\tSELECT \n\t\tEmployeeID,\n\t\tMAX(EndDate) AS LatestEndDate\n\tFROM\n\t\tEmployee\n\tGROUP BY EmployeeID\n)\nSELECT \n\te.EmployeeID, e.Name, e.Position, e.StartDate, e.EndDate\nFROM Employee e\nJOIN\n\tLatestEndDateEmp l ON l.EmployeeID = e.EmployeeID AND l.LatestEndDate = e.EndDate\n",
+							"type": "Expression"
+						},
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
 					"sink": {
 						"type": "SqlServerSink",
-						"writeBehavior": "insert",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"EmployeeID"
+							]
+						},
 						"sqlWriterUseTableLock": false
 					},
 					"enableStaging": false,
@@ -52,6 +64,138 @@
 						"parameters": {
 							"schema_name": "dbo",
 							"table_name": "user"
+						}
+					}
+				]
+			},
+			{
+				"name": "SCD 2",
+				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "WITH LatestEndDateEmp AS (\n\tSELECT \n\t\tEmployeeID,\n\t\tMAX(EndDate) AS LatestEndDate\n\tFROM\n\t\tEmployee\n\tGROUP BY EmployeeID\n)\nSELECT\n\te.EmployeeLogID, e.EmployeeID, e.Name, e.Position, e.StartDate, e.EndDate,\n\tCASE\n\t\tWHEN e.EndDate = l.LatestEndDate THEN 1\n\t\tELSE 0\n\tEND AS isLatest\nFROM\n\tEmployee e\nLEFT JOIN\n\tLatestEndDateEmp l ON l.EmployeeID = e.EmployeeID AND l.LatestEndDate = e.EndDate\nORDER BY e.EmployeeID",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"EmployeeID"
+							]
+						},
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SQL_hanif",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema_name": "dbo",
+							"table_name": "Employee"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SQL_faza",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema_name": "dbo",
+							"table_name": "user_log"
+						}
+					}
+				]
+			},
+			{
+				"name": "SCD 3",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": {
+							"value": "WITH NumberedEmployees AS (\n    SELECT *,\n           ROW_NUMBER() OVER (PARTITION BY EmployeeID ORDER BY EndDate DESC) AS row_num\n    FROM Employee\n),\nPreviousPosition AS (\n    SELECT EmployeeID, \n           PreviousPosition\n    FROM (\n        SELECT EmployeeID, \n               Position as PreviousPosition,\n               ROW_NUMBER() OVER (PARTITION BY EmployeeID ORDER BY EndDate DESC) AS row_num\n        FROM Employee\n    ) subpp\n    WHERE subpp.row_num = 2\n),\nStartDate AS (\n    SELECT EmployeeID, StartDate\n    FROM (\n        SELECT EmployeeID, Position, StartDate,\n               ROW_NUMBER() OVER (PARTITION BY EmployeeID ORDER BY EndDate ASC) AS row_num\n        FROM Employee\n    ) subsd\n    WHERE subsd.row_num = 1\n)\nSELECT e.EmployeeLogID,\n       e.EmployeeID,\n       e.Name,\n       e.Position,\n       COALESCE(pp.PreviousPosition, e.Position) AS PreviousPosition,\n       sd.StartDate,\n       e.EndDate\nFROM NumberedEmployees e\nLEFT JOIN StartDate sd ON e.EmployeeID = sd.EmployeeID\nLEFT JOIN PreviousPosition pp ON sd.EmployeeID = pp.EmployeeID\nWHERE e.row_num = 1;",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "upsert",
+						"upsertSettings": {
+							"useTempDB": true,
+							"keys": [
+								"EmployeeID"
+							]
+						},
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SQL_hanif",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema_name": "dbo",
+							"table_name": "Employee"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SQL_faza",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema_name": "dbo",
+							"table_name": "user_historical"
 						}
 					}
 				]
