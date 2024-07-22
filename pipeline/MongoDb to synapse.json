@@ -5,6 +5,8 @@
 			{
 				"name": "documents",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -20,14 +22,12 @@
 						"batchSize": 100
 					},
 					"sink": {
-						"type": "DelimitedTextSink",
+						"type": "JsonSink",
 						"storeSettings": {
 							"type": "AzureBlobFSWriteSettings"
 						},
 						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".txt"
+							"type": "JsonWriteSettings"
 						}
 					},
 					"enableStaging": false
@@ -43,13 +43,114 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "CSV_ADLS_faza",
+						"referenceName": "JSON_ADLS_faza",
 						"type": "DatasetReference",
 						"parameters": {
 							"container_name": "fazatest",
-							"folder_name": "raw",
-							"delimiter_name": ",",
-							"row_as_header": true
+							"folder_name": {
+								"value": "@concat('raw/', 'documents/', formatDateTime(utcnow(), 'yyyy-MM-dd'))",
+								"type": "Expression"
+							},
+							"file_name": "documents.json"
+						}
+					}
+				]
+			},
+			{
+				"name": "Notebook1",
+				"type": "DatabricksNotebook",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
+				"dependsOn": [
+					{
+						"activity": "documents",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/kelompok_4@chococwefdit.onmicrosoft.com/Faza/MongoDb to Synapse (parquet)/Soal 1"
+				},
+				"linkedServiceName": {
+					"referenceName": "Databricks_Faza",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Notebook1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "ParquetSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "ParquetReadSettings"
+						}
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "PARQUET_ADLS_faza",
+						"type": "DatasetReference",
+						"parameters": {
+							"folder_name": {
+								"value": "@concat('cleaned/', 'documents/', formatDateTime(utcnow(), 'yyyy-MM-dd'))",
+								"type": "Expression"
+							},
+							"file_name": "part-00000-tid-2459862063811964810-6bcde4dc-01f0-43df-b87c-095d3245cd46-62-1-c000.snappy.parquet"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SQL_Synapse_Celerates",
+						"type": "DatasetReference",
+						"parameters": {
+							"schema_name": "faza",
+							"table_name": "qna"
 						}
 					}
 				]
