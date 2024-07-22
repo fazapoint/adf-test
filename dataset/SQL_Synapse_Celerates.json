@@ -15,38 +15,7 @@
 		},
 		"annotations": [],
 		"type": "SqlServerTable",
-		"schema": [
-			{
-				"name": "EmployeeLogID",
-				"type": "varchar"
-			},
-			{
-				"name": "EmployeeID",
-				"type": "varchar"
-			},
-			{
-				"name": "Name",
-				"type": "varchar"
-			},
-			{
-				"name": "Position",
-				"type": "varchar"
-			},
-			{
-				"name": "StartDate",
-				"type": "varchar"
-			},
-			{
-				"name": "EndDate",
-				"type": "varchar"
-			},
-			{
-				"name": "curated_date",
-				"type": "datetime",
-				"precision": 23,
-				"scale": 3
-			}
-		],
+		"schema": [],
 		"typeProperties": {
 			"schema": {
 				"value": "@dataset().schema_name",
